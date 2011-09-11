@@ -2,6 +2,8 @@ require "rubygems"
 require "sinatra"
 require "json"
 
+set :public, File.dirname(__FILE__) + '/static'
+
 class Task
 
   attr_reader :id
@@ -43,9 +45,16 @@ TASKS << Task.new("name" => "Implement Sinatra methods", "description" => "Out o
 
 puts TASKS.inspect
 
+after do
+  content_type 'application/json'
+end
+
 get "/tasks" do
   puts "RETRIEVING TASKS"
-  JSON.pretty_generate(TASKS.find_all{|task| not task.nil?})
+  json = JSON.pretty_generate(TASKS.find_all{|task| not task.nil?})
+  puts json
+  # content_type 'application/json'
+  json
 end
 
 get "/tasks/:id" do |id|

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>DDD North - Introduction to backbone.js</title>
+</head>
+<body>
+
+  <h1>DDD North - Introduction to backbone.js</h1>
+
+  <table>
+    <thead>
+     <tr>
+       <th>Todo</th>
+       <th>Doing</th>
+       <th>Done</th>
+     </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="todo"></td>
+        <td id="doing"></td>
+        <td id="done"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script id="task" type="text/html">
+    <button class="move-left"></button>
+    <button class="move-right"></button>
+    <h3 class="name">{{name}}</h3>
+    <p class="description">{{description}}</p>
+  </script>
+
+  <script src="js/jquery-1.6.3.min.js"></script>
+  <script src="js/underscore.js"></script>
+  <script src="js/backbone.js"></script>
+  <script src="js/ICanHaz.js"></script>
+  <script src="application.js"></script>
+
+</body>
+</html>
+
