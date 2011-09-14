@@ -14,41 +14,83 @@
 
     var TaskView = Backbone.View.extend({
 
+        render : function() {
+            console.log("rendering task");
+	    console.log(this.model);
+
+            var html = ich.task(this.model.toJSON());
+
+            $(this.el).html(html);
+
+	    return this;
+	}
+
     });
 
     var TaskListView = Backbone.View.extend({
 
+	initialize : function() {
+	    _.bindAll(this, "render");
 
-	
+            console.log(this);
 
+            this.collection.bind("refresh", this.render);
+	    this.collection.bind("add", this.render);
+	    this.collection.bind("remove", this.render);
+	},
 
-    });
+	render : function() {
+	    console.log("rendering");
+            $("#todo").empty();
+            $("#doing").empty();
+            $("#done").empty();
 
-    var tasks = new Tasks();
-    
-    tasks.fetch({
-    
-	success : function() {
-	    console.log("Tasks : " + tasks.length);
+	    var taskViews = { todo : [], doing : [], done : [] };
 
-	    tasks.each(function(task) {
-		console.log("Task [" + task.id + "] : " + task.get('name'));
+	    console.log(this.collection);
+	    console.log(this.collection.length);
+
+	    this.collection.each(function(model) {
+	        console.log("trying to render task");
+	        var taskView = new TaskView({ model : model });
+		console.log(model);
+		taskViews[model.get("status")].push(taskView.render().el);
 	    });
+            
+            $("#todo").append(taskViews.todo);
+            $("#doing").append(taskViews.doing);
+            $("#done").append(taskViews.done);
+
+	    return this;
 	}
 
     });
 
-    var Controller = {
+    TodoList = Backbone.Router.extend({
 
-	init : function() {
+        initialize : function() {
+	    var tasks = new Tasks();
+            this.listView = new TaskListView({ collection : tasks });
 
-	    this.tasks = new Tasks();
+	    var taskListView = this.listView;
 
-	    this.view = new TaskListView({ model : this.tasks });
+	    tasks.fetch({ complete : function() { taskListView.render(); } });
+	},
 
-	    return this;	
+	routes : {
+	    "" : "index"
+	},
+
+	index : function() {
+            this.listView.render();
 	}
 
-    };
+    });
+
+    $(function() {
+        var app = new TodoList();
+
+	Backbone.history.start();
+    });
 
 })();
