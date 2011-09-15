@@ -50,7 +50,11 @@
     	
     		"click .move-left" : "moveLeft",
     		
-    		"click .move-right" : "moveRight"    		
+    		"click .move-right" : "moveRight",
+    		
+    		"click .display" : "beginEdit",
+    		
+    		"click .cancel-edit" : "cancelEdit"
     	
     	},
 
@@ -60,6 +64,18 @@
             $(this.el).html(html);
             
             return this;
+        },
+        
+        beginEdit : function() {
+        	console.log("begin editing");
+        	$(this.el).addClass("edit");
+        },
+        
+        cancelEdit : function() {
+        	console.log("cancelling edit");
+        	this.render();
+        	$(this.el).removeClass("edit");
+        	return false;
         },
         
         moveLeft : function() {

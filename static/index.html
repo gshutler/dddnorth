@@ -27,11 +27,23 @@
   </table>
 
   <script id="task" type="text/html">
-    <button class="move-left"></button>
-    <button class="move-right"></button>
-    <div class="content">
-    	<div class="name">{{name}}</div>
-    	<div class="description">{{description}}</div>
+    <div class="display">
+    	<button class="move-left"></button>
+	    <button class="move-right"></button>
+	    <div class="content">
+			<div class="name">{{name}}</div>
+			<div class="description">{{description}}</div>
+		</div>
+	</div>
+	<div class="form">
+		<form class="edit" >
+			<label for="name-{{id}}">Name</label>
+			<input type="text" id="name-{{id}}" name="name" value="{{name}}" />
+			<label for="description-{{id}}">Description</label>
+			<textarea id="description-{{id}}" name="description">{{description}}</textarea>
+			<button class="save-task" type="submit">Save</button>
+			<button class="cancel-edit">Cancel</button>
+		</form>
 	</div>
   </script>
 
