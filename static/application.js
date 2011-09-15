@@ -52,9 +52,13 @@
     		
     		"click .move-right" : "moveRight",
     		
-    		"click .display" : "beginEdit",
+    		"click .display" : "toggleExpand",
     		
-    		"click .cancel-edit" : "cancelEdit"
+    		"dblclick .display" : "beginEdit",
+    		
+    		"click .cancel-edit" : "endEdit",
+    		
+    		"click .save-task" : "saveTask"
     	
     	},
 
@@ -66,15 +70,33 @@
             return this;
         },
         
-        beginEdit : function() {
-        	console.log("begin editing");
-        	$(this.el).addClass("edit");
+        toggleExpand : function() {
+        	$(this.el).toggleClass("expanded");
         },
         
-        cancelEdit : function() {
-        	console.log("cancelling edit");
+        beginEdit : function() {
+        	$(this.el).addClass("edit");
+        	this.$(".name").focus();
+        },
+        
+        endEdit : function() {
         	this.render();
         	$(this.el).removeClass("edit");
+        	return false;
+        },
+        
+        saveTask : function() {
+        	var form = this.$(".edit")[0];
+        	
+        	var json = {
+        		"name" : form.name.value,
+        		"description" : form.description.value
+        	};
+        	
+        	this.model.set(json);
+        	this.model.save();        	
+        	this.endEdit();
+        	
         	return false;
         },
         
@@ -97,6 +119,49 @@
         }
 
     });
+    
+    var AddTaskView = Backbone.View.extend({
+    
+    	events : {
+    	
+    		"click #show-add-form" : "showForm",
+    		
+    		"click .cancel" : "reset",
+    		
+    		"click .add-task" : "addTask"
+    	
+    	},
+    
+    	addTask : function() {
+    		var form = this.$("form.add")[0];
+        	
+        	var json = {
+        		"name" : form.name.value,
+        		"description" : form.description.value
+        	};
+        	
+        	this.collection.create(json);        	
+        	this.reset();
+        	
+        	return false;
+    	},
+    	
+    	showForm : function() {
+    		$(this.el).addClass("show-form");
+    		this.$(".name").focus();
+    	},
+    
+    	reset : function() {
+    		$(this.el).removeClass("show-form");
+    		var form = this.$("form.add")[0];
+    		
+    		form.name.value = "";
+    		form.description.value = "";
+    		
+    		return false;
+    	}
+    
+    });
 
     var TaskListView = Backbone.View.extend({
 
@@ -106,7 +171,8 @@
             this.todoColumnView = new TaskListColumnView({ collection : this.collection, el : "#todo", status : "todo" });
             this.doingColumnView = new TaskListColumnView({ collection : this.collection, el : "#doing", status : "doing" });
             this.doneColumnView = new TaskListColumnView({ collection : this.collection, el : "#done", status : "done" });
-    
+            this.addTaskView = new AddTaskView({ collection : this.collection, el : "#add-task" });
+            
             this.collection.bind("add", this.render);
             this.collection.bind("remove", this.render);            
             this.collection.bind("change", this.render);

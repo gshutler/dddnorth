@@ -11,17 +11,12 @@ table tr td {
 }
 
 #todo-list th {
-	font-size: 1.17em;
-	line-height: 2em;
+	font-size: 1em;
+	color: #ddd;
 }
 
 #todo-list tbody {
 	text-align: left;
-}
-
-#doing {
-	border-left: solid 1px #eee;
-	border-right: solid 1px #eee;
 }
 
 .task-column {
@@ -39,31 +34,52 @@ table tr td {
 	display: none;
 }
 
+#todo-list tbody td .task:first-child {
+	padding-top: 8px;
+	border-top: dotted 1px #aaa;
+}
+
 .task {
-	/* height: 60px; */
+	height: 54px;
 	margin-bottom: 8px;
-	/* overflow: hidden; */
+	overflow: hidden;
+	border-bottom: dotted 1px #ddd;
+}
+
+.task .wrapper {
+	margin-bottom: 8px;
+	clear: both;
+}
+
+#show-add-form,
+.task .move {
+	border: none;
+	background: none;
+	font-size: 1.1em;
+	color: #bbb;
+}
+
+#show-add-form:hover,
+.task .move:hover {
+	color: #444;
+}
+
+button:hover,
+.task .display:hover{
+	cursor: pointer;
 }
 
 .task .form {
 	display: none;
 }
 
-.task.edit .form {
-	display: inherit;
-}
-
-.task.edit .display {
-	display: none;
-}
-
-.task label,
-.task textarea {
+label,
+textarea {
 	display: block;
 }
 
-.task input,
-.task textarea {
+input,
+textarea {
 	width: 100%;
 }
 
@@ -75,18 +91,82 @@ table tr td {
 	float: right;
 }
 
-.task .name {
+.task .display .name {
 	margin: 0 0 4px 0;
 	font-size: 1.17em;
 	height: 1.17em;
-	overflow: hidden;
 }
 
-.task .description {
+.task .display .description {
 	margin: 0;
+	color: #aaa;	
+	height: 1.1em;
+}
+
+.task.expanded {
+	height: auto;
+	min-height: 60px;
+	overflow: inherit;	
+}
+
+.task .name,
+.task .description {
+	width: 220px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.task.expanded .name,
+.task.expanded .description {
+	height: auto;
+	overflow: inherit;
+	white-space: inherit;
+	text-overflow: inherit;
 }
 
 .task .content,
-.task .form {
+.task .form,
+#add-task .form {
 	margin: 0 40px;
+}
+
+
+.task.edit .form {
+	display: inherit;
+}
+
+.task.edit {
+	height: auto;
+	overflow: inherit;
+}
+
+.task.edit .display {
+	display: none;
+}
+
+button.cancel {
+	background: none;
+	border: none;
+	color: #bbb;
+}
+
+button.cancel:hover {
+	color: #f66;
+}
+
+#show-add-form {
+	float: left;
+}
+
+#add-task .form {
+	display: none;
+}
+
+#add-task.show-form .form {
+	display: inherit;
+}
+
+#add-task .name {	
+	margin-top: 8px;
 }
