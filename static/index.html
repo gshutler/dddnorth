@@ -3,12 +3,13 @@
 <head>
 <meta charset="utf-8">
 <title>DDD North - Introduction to backbone.js</title>
+<link href="style.css" media="screen" rel="stylesheet" type="text/css">
 </head>
 <body>
 
   <h1>DDD North - Introduction to backbone.js</h1>
 
-  <table>
+  <table id="todo-list">
     <thead>
      <tr>
        <th>Todo</th>
@@ -18,9 +19,9 @@
     </thead>
     <tbody>
       <tr>
-        <td id="todo"></td>
-        <td id="doing"></td>
-        <td id="done"></td>
+        <td id="todo" class="task-column"></td>
+        <td id="doing" class="task-column"></td>
+        <td id="done" class="task-column"></td>
       </tr>
     </tbody>
   </table>
@@ -28,8 +29,10 @@
   <script id="task" type="text/html">
     <button class="move-left"></button>
     <button class="move-right"></button>
-    <h3 class="name">{{name}}</h3>
-    <p class="description">{{description}}</p>
+    <div class="content">
+    	<div class="name">{{name}}</div>
+    	<div class="description">{{description}}</div>
+	</div>
   </script>
 
   <script src="js/jquery-1.6.3.min.js"></script>

@@ -9,10 +9,50 @@
         url : '/tasks',
     
         model : Task,
+                
+        getTasksByStatus : function(status) {
+        	return _.select(this.models, function(model) {
+				return model.get("status") === status;
+			});
+        }
     
     });
-
+    
+    var taskStatuses = ["todo", "doing", "done"];
+    
+    var getNextStatus = function(status) {
+    	var possibleStatusIndex = taskStatuses.indexOf(status) + 1;
+    	var nextStatus = status;
+    	
+    	if (possibleStatusIndex < taskStatuses.length) {
+    		nextStatus = taskStatuses[possibleStatusIndex];
+    	}
+    	
+    	return nextStatus;
+    };
+    
+    var getPreviousStatus = function(status) {
+    	var possibleStatusIndex = taskStatuses.indexOf(status) - 1;
+    	var previousStatus = status;
+    	
+    	if (possibleStatusIndex > -1) {
+    		previousStatus = taskStatuses[possibleStatusIndex];
+    	}
+    	
+    	return previousStatus;
+    };
+    
     var TaskView = Backbone.View.extend({
+    
+    	className : "task",
+    	
+    	events : {
+    	
+    		"click .move-left" : "moveLeft",
+    		
+    		"click .move-right" : "moveRight"    		
+    	
+    	},
 
         render : function() {
             var html = ich.task(this.model.toJSON());
@@ -20,6 +60,24 @@
             $(this.el).html(html);
             
             return this;
+        },
+        
+        moveLeft : function() {
+        	this._moveTask(getPreviousStatus);
+        },
+        
+        moveRight : function() {
+        	this._moveTask(getNextStatus);
+        },
+        
+        _moveTask : function(newStatusFn) {
+			var currentStatus = this.model.get("status");
+			var newStatus = newStatusFn(currentStatus);
+			
+			if (currentStatus !== newStatus) {
+				this.model.set({ "status" : newStatus });
+				this.model.save();
+			}
         }
 
     });
@@ -28,39 +86,52 @@
 
         initialize : function() {
             _.bindAll(this, "render");
+            
+            this.todoColumnView = new TaskListColumnView({ collection : this.collection, el : "#todo", status : "todo" });
+            this.doingColumnView = new TaskListColumnView({ collection : this.collection, el : "#doing", status : "doing" });
+            this.doneColumnView = new TaskListColumnView({ collection : this.collection, el : "#done", status : "done" });
     
-            this.collection.bind("refresh", this.render);
             this.collection.bind("add", this.render);
-            this.collection.bind("remove", this.render);
+            this.collection.bind("remove", this.render);            
+            this.collection.bind("change", this.render);
         },
     
         render : function() {
-            $("#todo").empty();
-            $("#doing").empty();
-            $("#done").empty();
-    
-            var taskViews = { todo : [], doing : [], done : [] };
-    
-            this.collection.each(function(model) {
-                var taskView = new TaskView({ model : model });
-                var status = model.get("status");
-                var renderedTask = taskView.render().el;
-                taskViews[status].push(renderedTask);
-            });
-                
-            $("#todo").append(taskViews.todo);
-            $("#doing").append(taskViews.doing);
-            $("#done").append(taskViews.done);
-    
-            return this;
+        	this.todoColumnView.render();
+        	this.doingColumnView.render();
+        	this.doneColumnView.render();
         }
 
+    });
+    
+    var TaskListColumnView = Backbone.View.extend({
+    
+    	initialize : function() {
+    		_.bindAll(this, "render");
+    	},
+    	
+    	render : function() {
+    		$(this.el).empty();
+    		
+    		var taskViews = [];
+    		
+    		_.forEach(this.collection.getTasksByStatus(this.options.status), function(task) {
+    			var taskView = new TaskView({ model : task });
+    			var renderedTask = taskView.render().el;
+    			taskViews.push(renderedTask);
+    		});
+    		
+    		$(this.el).append(taskViews);
+    		
+    		return this;    	
+    	}
+    
     });
 
     TodoList = Backbone.Router.extend({
 
         initialize : function(options) {
-            this.listView = new TaskListView({ collection : options.tasks });
+            this.todoListView = new TaskListView({ collection : options.tasks });
         },
     
         routes : {
@@ -68,7 +139,7 @@
         },
     
         index : function() {
-            this.listView.render();
+            this.todoListView.render();
         }
 
     });

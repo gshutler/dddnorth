@@ -42,6 +42,8 @@ TASKS = []
 TASKS << Task.new("name" => "Sketch out in-memory", "description" => "Demonstrate idea")
 TASKS << Task.new("name" => "Replace with database perhaps", "description" => "Might not be needed")
 TASKS << Task.new("name" => "Implement Sinatra methods", "description" => "Out of practice")
+TASKS << Task.new("name" => "Doing task", "description" => "Checking", "status" => "doing")
+TASKS << Task.new("name" => "Done task", "description" => "Checking", "status" => "done")
 
 puts TASKS.inspect
 

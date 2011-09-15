@@ -1,0 +1,69 @@
+body {
+	text-align: center;
+}
+
+table tr td {
+	vertical-align: top;
+}
+
+#todo-list {
+	margin: auto;
+}
+
+#todo-list th {
+	font-size: 1.17em;
+	line-height: 2em;
+}
+
+#todo-list tbody {
+	text-align: left;
+}
+
+#doing {
+	border-left: solid 1px #eee;
+	border-right: solid 1px #eee;
+}
+
+.task-column {
+	padding: 0 8px;
+}
+
+#todo, 
+#doing,
+#done {
+	width: 300px;
+}
+
+#todo .move-left,
+#done .move-right {
+	display: none;
+}
+
+.task {
+	height: 60px;
+	margin-bottom: 8px;
+	overflow: hidden;
+}
+
+.task .move-left {
+	float: left;
+}
+
+.task .move-right {
+	float: right;
+}
+
+.task .name {
+	margin: 0 0 4px 0;
+	font-size: 1.17em;
+	height: 1.17em;
+	overflow: hidden;
+}
+
+.task .description {
+	margin: 0;
+}
+
+.task .content {
+	margin: 0 40px;
+}
