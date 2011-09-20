@@ -1,15 +1,47 @@
 (function() {
     
     var Task = Backbone.Model.extend({
-
+    
+		initialize : function() {
+            _.bindAll(this, "getNextStatus", "getPreviousStatus");
+        },
+    
+		taskStatuses : ["todo", "doing", "done"],
+        
+        getNextStatus : function() {
+        	var status = this.get("status");
+			var possibleStatusIndex = Task.taskStatuses.indexOf(status) + 1;
+			var nextStatus = status;
+			
+			if (possibleStatusIndex < Task.taskStatuses.length) {
+				nextStatus = Task.taskStatuses[possibleStatusIndex];
+			}
+			
+			return nextStatus;
+		},
+		
+		getPreviousStatus : function() {
+        	var status = this.get("status");
+			var possibleStatusIndex = Task.taskStatuses.indexOf(status) - 1;
+			var previousStatus = status;
+			
+			if (possibleStatusIndex > -1) {
+				previousStatus = Task.taskStatuses[possibleStatusIndex];
+			}
+			
+			return previousStatus;
+		}
+		
     });
+    
+    Task.taskStatuses = ["todo", "doing", "done"];
 
     var Tasks = Backbone.Collection.extend({
 
         url : '/tasks',
     
         model : Task,
-                
+        
         getTasksByStatus : function(status) {
         	return _.select(this.models, function(model) {
 				return model.get("status") === status;
@@ -17,30 +49,6 @@
         }
     
     });
-    
-    var taskStatuses = ["todo", "doing", "done"];
-    
-    var getNextStatus = function(status) {
-    	var possibleStatusIndex = taskStatuses.indexOf(status) + 1;
-    	var nextStatus = status;
-    	
-    	if (possibleStatusIndex < taskStatuses.length) {
-    		nextStatus = taskStatuses[possibleStatusIndex];
-    	}
-    	
-    	return nextStatus;
-    };
-    
-    var getPreviousStatus = function(status) {
-    	var possibleStatusIndex = taskStatuses.indexOf(status) - 1;
-    	var previousStatus = status;
-    	
-    	if (possibleStatusIndex > -1) {
-    		previousStatus = taskStatuses[possibleStatusIndex];
-    	}
-    	
-    	return previousStatus;
-    };
     
     var TaskView = Backbone.View.extend({
     
@@ -101,16 +109,16 @@
         },
         
         moveLeft : function() {
-        	this._moveTask(getPreviousStatus);
+        	this._moveTask(this.model.getPreviousStatus);
         },
         
         moveRight : function() {
-        	this._moveTask(getNextStatus);
+        	this._moveTask(this.model.getNextStatus);
         },
         
         _moveTask : function(newStatusFn) {
 			var currentStatus = this.model.get("status");
-			var newStatus = newStatusFn(currentStatus);
+			var newStatus = newStatusFn();
 			
 			if (currentStatus !== newStatus) {
 				this.model.set({ "status" : newStatus });
