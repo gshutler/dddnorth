@@ -218,7 +218,7 @@
     
     });
 
-    TodoList = Backbone.Router.extend({
+    var TodoList = Backbone.Router.extend({
 
         initialize : function(options) {
             this.todoListView = new TaskListView({ collection : options.tasks });
