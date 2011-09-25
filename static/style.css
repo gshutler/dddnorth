@@ -2,8 +2,19 @@ body {
 	text-align: center;
 }
 
+.view {
+	display: none;
+}
+
 table tr td {
 	vertical-align: top;
+}
+
+#add-task,
+#edit-task {
+	margin: auto;
+	width: 600px;
+	text-align: left;
 }
 
 #todo-list {
@@ -40,10 +51,13 @@ table tr td {
 }
 
 .task {
-	height: 54px;
 	margin-bottom: 8px;
-	overflow: hidden;
 	border-bottom: dotted 1px #ddd;
+}
+
+.task .content {
+	display: block;
+	min-height: 44px;
 }
 
 .task .wrapper {
@@ -51,26 +65,51 @@ table tr td {
 	clear: both;
 }
 
-#show-add-form,
-.task .move {
+.task .content,
+.task .move,
+.new-task {
 	border: none;
 	background: none;
+	text-decoration: none;
+}
+
+.task .move,
+.new-task {
 	font-size: 1.1em;
 	color: #bbb;
 }
 
-#show-add-form:hover,
-.task .move:hover {
+.task .move:hover,
+.new-task:hover {
 	color: #444;
 }
 
-button:hover,
-.task .display:hover{
+button:hover {
 	cursor: pointer;
 }
 
-.task .form {
-	display: none;
+.task .move-left {
+	float: left;
+}
+
+.task .move-right {
+	float: right;
+}
+
+.task .display .name {
+	font-weight: normal;
+	color: #444;
+	margin: 0 0 4px 0;
+	font-size: 1.1em;
+}
+
+.task .display .name:hover {
+	color: #bbb;
+}
+
+.task .content,
+#add-task .form {
+	margin: 0 40px;
 }
 
 label,
@@ -83,90 +122,36 @@ textarea {
 	width: 100%;
 }
 
-.task .move-left {
-	float: left;
+input.name {
+	font-size: 2em;
+	margin: 8px 0;
 }
 
-.task .move-right {
-	float: right;
+textarea.description {
+	font-size: 1.2em;
+	height: 160px;
+	margin-bottom: 8px;
+	color: #444;
 }
 
-.task .display .name {
-	margin: 0 0 4px 0;
-	font-size: 1.17em;
-	height: 1.17em;
-}
-
-.task .display .description {
-	margin: 0;
-	color: #aaa;	
-	height: 1.1em;
-}
-
-.task.expanded {
-	height: auto;
-	min-height: 60px;
-	overflow: inherit;	
-}
-
-.task .name,
-.task .description {
-	width: 220px;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.task.expanded .name,
-.task.expanded .description {
-	height: auto;
-	overflow: inherit;
-	white-space: inherit;
-	text-overflow: inherit;
-}
-
-.task .content,
-.task .form,
-#add-task .form {
-	margin: 0 40px;
-}
-
-
-.task.edit .form {
-	display: inherit;
-}
-
-.task.edit {
-	height: auto;
-	overflow: inherit;
-}
-
-.task.edit .display {
-	display: none;
-}
-
-button.cancel {
-	background: none;
-	border: none;
+a.delete {
+	text-decoration: none;
 	color: #bbb;
 }
 
-button.cancel:hover {
-	color: #f66;
+a.delete:hover {
+	color: #f00;
 }
 
-#show-add-form {
-	float: left;
+#edit-task .actions {
+	text-align: right;
 }
 
-#add-task .form {
-	display: none;
+#edit-task .back {
+	color: #444;
+	text-decoration: none;
 }
 
-#add-task.show-form .form {
-	display: inherit;
-}
-
-#add-task .name {	
-	margin-top: 8px;
+#edit-task .back:hover {
+	color: #bbb;
 }

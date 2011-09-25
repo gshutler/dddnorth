@@ -9,7 +9,7 @@
 
 	<h1>DDD North - Introduction to backbone.js</h1>
 	
-	<table id="todo-list">
+	<table id="todo-list" class="view">
 		<thead>
 			<tr>
 				<th>Todo</th>
@@ -21,41 +21,44 @@
 			<tr>
 				<td class="task-column">
 					<div id="todo"></div>
-					<div id="add-task">
-						<button id="show-add-form">+</button>
-						<div class="form">
-							<form class="add">
-								<input type="text" name="name" class="name" value="" placeholder="Name" />
-								<textarea name="description" class="description" placeholder="Description"></textarea>
-								<button class="add-task" type="submit">Add</button>
-								<button class="cancel cancel-add">Cancel</button>
-							</form>
-						</div>						
-					</div>
+					<a href="#task/new" class="new-task">+</a>
 				</td>
 				<td id="doing" class="task-column"></td>
 				<td id="done" class="task-column"></td>
 			</tr>
 		</tbody>
 	</table>
+	
+	<div id="add-task" class="view">
+		<div class="form">
+			<form class="add">
+				<input type="text" name="name" class="name" value="" placeholder="Name" />
+				<textarea name="description" class="description" placeholder="Description"></textarea>
+				<a href="#" class="add-task">Add</a>
+				<a href="#" class="cancel cancel-add">Cancel</a>
+			</form>
+		</div>						
+	</div>
+	
+	<div id="edit-task" class="view">
+		<form class="edit" >
+			<a class="save-task back" href="#">&larr; Back</a>
+			<input type="text" name="name" class="name" value="" />
+			<textarea name="description" class="description"></textarea>
+			<div class="actions">
+				<a href="#" class="delete delete-task">Delete</a>
+			</div>
+		</form>	
+	</div>
 
 	<script id="task" type="text/html">
 		<div class="wrapper">
 			<div class="display">
 				<button class="move move-left">&larr;</button>
 				<button class="move move-right">&rarr;</button>
-				<div class="content">
-					<div class="name">{{name}}</div>
-					<div class="description">{{description}}</div>
-				</div>
-			</div>
-			<div class="form">
-				<form class="edit" >
-					<input type="text" name="name" class="name" value="{{name}}" />
-					<textarea name="description" class="description">{{description}}</textarea>
-					<button class="save-task" type="submit">Save</button>
-					<button class="cancel cancel-edit">Cancel</button>
-				</form>
+				<a href="#task/{{id}}" class="content">
+					<h3 class="name">{{name}}</h3>
+				</a>
 			</div>
 		</div>
 	</script>
