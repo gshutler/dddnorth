@@ -55,17 +55,7 @@ table tr td {
 	border-bottom: dotted 1px #ddd;
 }
 
-.task .content {
-	display: block;
-	min-height: 44px;
-}
-
-.task .wrapper {
-	margin-bottom: 8px;
-	clear: both;
-}
-
-.task .content,
+.task .display,
 .task .move,
 .new-task {
 	border: none;
@@ -96,20 +86,27 @@ button:hover {
 	float: right;
 }
 
-.task .display .name {
+.task .name {
 	font-weight: normal;
 	color: #444;
 	margin: 0 0 4px 0;
 	font-size: 1.1em;
 }
 
-.task .display .name:hover {
+.task .name:hover {
 	color: #bbb;
 }
 
-.task .content,
-#add-task .form {
+.task .display {
+	margin-bottom: 8px;
+	clear: both;
+}
+
+.task .content {
+	display: block;
+	min-height: 44px;
 	margin: 0 40px;
+	text-decoration: none;
 }
 
 label,
@@ -147,11 +144,11 @@ a.delete:hover {
 	text-align: right;
 }
 
-#edit-task .back {
+.back {
 	color: #444;
 	text-decoration: none;
 }
 
-#edit-task .back:hover {
+.back:hover {
 	color: #bbb;
 }
