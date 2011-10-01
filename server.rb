@@ -1,9 +1,9 @@
 require "rubygems"
 require "sinatra"
 require "json"
-require File.dirname(__FILE__) + "/task"
+require File.join(File.dirname(__FILE__), "task")
 
-set :public, File.dirname(__FILE__) + '/static'
+set :public, File.join(File.dirname(__FILE__), "static")
 
 # Initialize our "database".
 
@@ -14,6 +14,12 @@ TASKS << Task.new("name" => "Replace with database perhaps", "description" => "M
 TASKS << Task.new("name" => "Implement Sinatra methods", "description" => "Out of practice")
 TASKS << Task.new("name" => "Doing task", "description" => "Checking", "status" => "doing")
 TASKS << Task.new("name" => "Done task", "description" => "Checking", "status" => "done")
+
+# Returns `index.html` for root URL.
+get "/" do
+  content_type "text/html"
+  File.read(File.join(File.dirname(__FILE__), "static", "index.html"))
+end
 
 # Returns all the tasks that have not been deleted as an array.
 get "/tasks" do
@@ -46,8 +52,8 @@ delete "/tasks/:id" do |id|
 end
 
 # Set the Content-Type of every response to `application/json`
-after do
-  content_type 'application/json'
+before do
+  content_type "application/json"
 end
 
 # Gets the task with the specified `id`.
