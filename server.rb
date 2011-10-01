@@ -1,41 +1,11 @@
 require "rubygems"
 require "sinatra"
 require "json"
+require File.dirname(__FILE__) + "/task"
 
 set :public, File.dirname(__FILE__) + '/static'
 
-class Task
-
-  attr_reader :id
-  attr_accessor :name, :description, :status
-
-  @@id = 0
-
-  def initialize(args)
-    @id = @@id
-    @@id += 1
-
-    @name = args["name"]
-    @description = args["description"]
-    @status = args["status"] || "todo"
-  end
-
-  def apply(args)
-    @name = args["name"] || @name
-    @description = args["description"] || @description
-    @status = args["status"] || @status
-  end
-
-  def to_json(*a)
-    {
-      'id' => @id,
-      'name' => @name,
-      'description' => @description,
-      'status' => @status
-    }.to_json(*a)
-  end
-
-end
+# Initialize our "database".
 
 TASKS = []
 
@@ -45,61 +15,52 @@ TASKS << Task.new("name" => "Implement Sinatra methods", "description" => "Out o
 TASKS << Task.new("name" => "Doing task", "description" => "Checking", "status" => "doing")
 TASKS << Task.new("name" => "Done task", "description" => "Checking", "status" => "done")
 
-puts TASKS.inspect
+# Returns all the tasks that have not been deleted as an array.
+get "/tasks" do
+  JSON.pretty_generate(TASKS.find_all{|task| not task.nil?})
+end
 
+# Gets a representation of a specific task.
+get "/tasks/:id" do |id|
+  task = get_task(id)
+  JSON.pretty_generate(task)
+end
+
+# Adds a new task and returns its representation.
+post "/tasks" do
+  new_task = Task.new(json_body)
+  TASKS << new_task
+  JSON.pretty_generate(new_task)
+end
+
+# Updates the representation of a specific task.
+put "/tasks/:id" do |id|
+  task = get_task(id)
+  task.apply(json_body)
+  JSON.pretty_generate(task)
+end
+
+# Deletes a specific task.
+delete "/tasks/:id" do |id|
+  TASKS[id.to_i] = nil
+end
+
+# Set the Content-Type of every response to `application/json`
 after do
   content_type 'application/json'
 end
 
-get "/tasks" do
-  puts "RETRIEVING TASKS"
-  json = JSON.pretty_generate(TASKS.find_all{|task| not task.nil?})
-  puts json
-  # content_type 'application/json'
-  json
-end
-
-get "/tasks/:id" do |id|
-  puts "RETRIEVING TASK #{id}"
-  # get the task
-  task = get_task id
-  # return it
-  JSON.pretty_generate(task)
-end
-
-post "/tasks" do
-  puts "CREATING TASK"
-  # parse the request
-  args = JSON.parse(request.body.read.to_s)
-  # create a new task from th request parameters
-  new_task = Task.new(args)
-  # push the new task into the list
-  TASKS << new_task
-  # return the new task as json
-  JSON.pretty_generate(new_task)
-end
-
-put "/tasks/:id" do |id|
-  puts "UPDATING #{id}"
-  # retrieve the task
-  task = get_task id
-  # get the update arguments
-  update_args = JSON.parse(request.body.read.to_s)
-  # apply them to the task
-  task.apply(update_args)
-  # return the updated task
-  JSON.pretty_generate(task)
-end
-
-delete "/tasks/:id" do |id|
-  puts "DELETING #{id}"
-  # nil the entry at the given index
-  TASKS[id.to_i] = nil
-end
-
+# Gets the task with the specified `id`.
+#
+# Halts with `404` if the task with the specified id has been deleted.
 def get_task(id)
   task = TASKS[id.to_i]
   not_found if task.nil?
   task
+end
+
+# Returns the body of the request parsed as JSON.
+def json_body
+  JSON.parse(request.body.read.to_s)
 end
 
