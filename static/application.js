@@ -129,7 +129,7 @@
     
     });
 
-	/**
+    /**
      * View encapsulating the logic required for the task creation view.
      */
     var AddTaskView = Backbone.View.extend({
@@ -147,7 +147,7 @@
             _.bindAll(this, "reset", "addTask");
         },
     
-    	/**
+        /**
          * Defines the events to bind within the view.
          */
         events : {
@@ -214,11 +214,11 @@
          * Defines the events to bind within the view.
          */
         events : {
-        	
-        	/**
-        	 * When the `save-task` element is clicked within the view then the
-        	 * `saveTask` function should be invoked.
-        	 */
+            
+            /**
+             * When the `save-task` element is clicked within the view then the
+             * `saveTask` function should be invoked.
+             */
             "click .save-task" : "saveTask",
             
             /**
@@ -281,24 +281,24 @@
          */
         events : {
         
-        	/**
-        	 * When the `move-left` element is clicked within the view then the
-        	 * `moveLeft` function should be invoked.
-        	 */
+            /**
+             * When the `move-left` element is clicked within the view then the
+             * `moveLeft` function should be invoked.
+             */
             "click .move-left" : "moveLeft",
             
             /**
-        	 * When the `move-right` element is clicked within the view then
-        	 * the `moveRight` function should be invoked.
-        	 */
+             * When the `move-right` element is clicked within the view then
+             * the `moveRight` function should be invoked.
+             */
             "click .move-right" : "moveRight"
         
         },
 
-		/**
-		 * Renders a view for the model by passing its JSON representation to an
-		 * ICanHaz template and pushing the resulting HTML into the views `el`.
-		 */
+        /**
+         * Renders a view for the model by passing its JSON representation to an
+         * ICanHaz template and pushing the resulting HTML into the views `el`.
+         */
         render : function() {
             var html = ich.task(this.model.toJSON());
             
@@ -343,23 +343,23 @@
         }
 
     });
-	
-	/**
-	 * View encapsulating the logic required to display a collection of tasks.
-	 */
+    
+    /**
+     * View encapsulating the logic required to display a collection of tasks.
+     */
     var TaskListView = Backbone.View.extend({
 
-		/**
-		 * Initializes the view.
-		 * 
-		 * Ensures that the `render` and `_addChildView` functions always have
-		 * `this` scoped to the view when they are invoked, it also creates the
-		 * three child views for displaying the individual columns for each 
-		 * status a task can have.
-		 *
-		 * Finally, it ensures that whenever the collection of tasks is altered
-		 * in any way that the view is re-rendered to reflect the changes.
-		 */
+        /**
+         * Initializes the view.
+         * 
+         * Ensures that the `render` and `_addChildView` functions always have
+         * `this` scoped to the view when they are invoked, it also creates the
+         * three child views for displaying the individual columns for each 
+         * status a task can have.
+         *
+         * Finally, it ensures that whenever the collection of tasks is altered
+         * in any way that the view is re-rendered to reflect the changes.
+         */
         initialize : function() {
             _.bindAll(this, "render");
             
@@ -374,13 +374,13 @@
             this.collection.bind("change", this.render);
         },
     
-    	/**
-    	 * Renders each of the child views.
-    	 */
+        /**
+         * Renders each of the child views.
+         */
         render : function() {
-        	_.each(this.childViews, function(view) {
-        		view.render();
-        	});
+            _.each(this.childViews, function(view) {
+                view.render();
+            });
         },
         
         /**
@@ -388,9 +388,9 @@
          * to the model collection and adds it to the child view collection.
          */
         _addChildView : function(args) {
-        	args.collection = this.collection;        	
+            args.collection = this.collection;          
             var childView = new TaskListColumnView(args);            
-        	this.childViews.push(childView);
+            this.childViews.push(childView);
         }
 
     });
@@ -401,12 +401,12 @@
      */
     var TaskListColumnView = Backbone.View.extend({
     
-    	/**
-		 * Initializes the view.
-		 * 
-		 * Ensures that the `render` function always has `this` scoped to the 
-		 * view when it is invoked.
-		 */
+        /**
+         * Initializes the view.
+         * 
+         * Ensures that the `render` function always has `this` scoped to the 
+         * view when it is invoked.
+         */
         initialize : function() {
             _.bindAll(this, "render");
         },
@@ -438,17 +438,17 @@
     
     });
 
-	/**
-	 * The router for a todo list application.
-	 */
+    /**
+     * The router for a todo list application.
+     */
     var TodoList = Backbone.Router.extend({
 
-		/**
-		 * Initializes the router.
-		 *
-		 * Aliases out the tasks provided within the options for easier access
-		 * and then initializes all the top-level views.
-		 */
+        /**
+         * Initializes the router.
+         *
+         * Aliases out the tasks provided within the options for easier access
+         * and then initializes all the top-level views.
+         */
         initialize : function(options) {
             this.tasks = options.tasks;
             this.todoListView = new TaskListView({ collection : this.tasks, el : "#todo-list" });
@@ -456,9 +456,9 @@
             this.taskEditView = new TaskEditView({ el : "#edit-task" });
         },
     
-    	/**
-    	 * Defines the routes for the application.
-    	 */
+        /**
+         * Defines the routes for the application.
+         */
         routes : {
             
             /**
@@ -485,12 +485,12 @@
                         
         },
     
-    	/**
-    	 * Displays the full todo list.
-    	 *
-    	 * First ensures that we are in a known state by hiding all the 
-    	 * top-level views and then renders and displays the todo list view.
-    	 */
+        /**
+         * Displays the full todo list.
+         *
+         * First ensures that we are in a known state by hiding all the 
+         * top-level views and then renders and displays the todo list view.
+         */
         index : function() {
             this._hideAll();
             this.todoListView.render();
@@ -501,8 +501,8 @@
          * Displays the edit task view.
          *
          * First ensures that we are in a known state by hiding all the 
-    	 * top-level views and then renders the edit task view for the 
-    	 * specified task and then displays it.
+         * top-level views and then renders the edit task view for the 
+         * specified task and then displays it.
          */
         editTask : function(id) {
             this._hideAll();
@@ -511,11 +511,11 @@
         },
         
         /**
-    	 * Displays the add task view.
-    	 *
-    	 * First ensures that we are in a known state by hiding all the 
-    	 * top-level views and then resets and displays the add task view.
-    	 */
+         * Displays the add task view.
+         *
+         * First ensures that we are in a known state by hiding all the 
+         * top-level views and then resets and displays the add task view.
+         */
         addTask : function() {
             this._hideAll();
             this.addTaskView.reset();
@@ -532,22 +532,22 @@
         }
 
     });
-	
-	/**
-	 * Initializes the application.
-	 *
-	 * First, retrieves all tasks once the document is ready and then uses the
-	 * retrieved collection to initialize the application.
-	 */
+    
+    /**
+     * Initializes the application.
+     *
+     * First, retrieves all tasks once the document is ready and then uses the
+     * retrieved collection to initialize the application.
+     */
     $(function() {
         var tasks = new Tasks();
 
         tasks.fetch({
         
-        	/**
-        	 * Once the tasks have been retrieved, the application is 
-        	 * initialized with them.
-        	 */
+            /**
+             * Once the tasks have been retrieved, the application is 
+             * initialized with them.
+             */
             complete : function() {
                 var app = new TodoList({ tasks : tasks });
 
