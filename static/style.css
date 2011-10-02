@@ -1,5 +1,7 @@
 body {
 	text-align: center;
+	font-family: Helvetica;
+	font-size: 1.2em;
 }
 
 .view {
@@ -37,7 +39,7 @@ table tr td {
 #todo, 
 #doing,
 #done {
-	width: 300px;
+	width: 260px;
 }
 
 #todo .move-left,
