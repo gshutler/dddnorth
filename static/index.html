@@ -7,65 +7,64 @@
 </head>
 <body>
 
-	<h1>DDD North - Backbone.js</h1>
-	
-	<table id="todo-list" class="view">
-		<thead>
-			<tr>
-				<th>Todo</th>
-				<th>Doing</th>
-				<th>Done</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td class="task-column">
-					<div id="todo"></div>
-					<a href="#task/new" class="new-task">+</a>
-				</td>
-				<td id="doing" class="task-column"></td>
-				<td id="done" class="task-column"></td>
-			</tr>
-		</tbody>
-	</table>
-	
-	<div id="add-task" class="view">
-		<form class="add">
-			<a class="save-task back" href="#">&larr; Back</a>
-			<input type="text" name="name" class="name" value="" placeholder="Name" />
-			<textarea name="description" class="description" placeholder="Description"></textarea>
-			<a href="#" class="add-task">Add</a>
-			<a href="#" class="cancel cancel-add">Cancel</a>
-		</form>
-	</div>
-	
-	<div id="edit-task" class="view">
-		<form class="edit" >
-			<a class="save-task back" href="#">&larr; Back</a>
-			<input type="text" name="name" class="name" value="" />
-			<textarea name="description" class="description"></textarea>
-			<div class="actions">
-				<a href="#" class="delete delete-task">Delete</a>
-			</div>
-		</form>	
-	</div>
+    <h1>DDD North - Backbone.js</h1>
+    
+    <table id="todo-list" class="view">
+        <thead>
+            <tr>
+                <th>Todo</th>
+                <th>Doing</th>
+                <th>Done</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="task-column">
+                    <div id="todo"></div>
+                    <a href="#task/new" class="new-task">+</a>
+                </td>
+                <td id="doing" class="task-column"></td>
+                <td id="done" class="task-column"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div id="add-task" class="view">
+        <form class="add">
+            <a class="save-task back" href="#">&larr; Back</a>
+            <input type="text" name="name" class="name" value="" placeholder="Name" />
+            <textarea name="description" class="description" placeholder="Description"></textarea>
+            <a href="#" class="add-task">Add</a>
+            <a href="#" class="cancel cancel-add">Cancel</a>
+        </form>
+    </div>
+    
+    <div id="edit-task" class="view">
+        <form class="edit" >
+            <a class="save-task back" href="#">&larr; Back</a>
+            <input type="text" name="name" class="name" value="" />
+            <textarea name="description" class="description"></textarea>
+            <div class="actions">
+                <a href="#" class="delete delete-task">Delete</a>
+            </div>
+        </form> 
+    </div>
 
-	<script id="task" type="text/html">
-		<div class="display">
-			<button class="move move-left">&larr;</button>
-			<button class="move move-right">&rarr;</button>
-			<a href="#task/{{id}}" class="content">
-				<h3 class="name">{{name}}</h3>
-			</a>
-		</div>
-	</script>
+    <script id="task" type="text/html">
+        <div class="display">
+            <button class="move move-left">&larr;</button>
+            <button class="move move-right">&rarr;</button>
+            <a href="#task/{{id}}" class="content">
+                <h3 class="name">{{name}}</h3>
+            </a>
+        </div>
+    </script>
 
-	<script src="js/jquery-1.6.3.min.js"></script>
-	<script src="js/underscore.js"></script>
-	<script src="js/backbone.js"></script>
-	<script src="js/ICanHaz.js"></script>
-	<script src="application.js"></script>
+    <script src="js/jquery-1.6.3.min.js"></script>
+    <script src="js/underscore.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/ICanHaz.js"></script>
+    <script src="application.js"></script>
 
 </body>
 </html>
-
