@@ -345,6 +345,49 @@
     });
     
     /**
+     * View encapsulating the logic required for rendering a column of tasks
+     * with a specified status.
+     */
+    var TaskListColumnView = Backbone.View.extend({
+    
+        /**
+         * Initializes the view.
+         * 
+         * Ensures that the `render` function always has `this` scoped to the 
+         * view when it is invoked.
+         */
+        initialize : function() {
+            _.bindAll(this, "render");
+        },
+        
+        /**
+         * Renders a column of tasks from the collection with the specified 
+         * status.
+         *
+         * Removes everything from the containing element before rendering each
+         * of the tasks individually.
+         */
+        render : function() {
+            $(this.el).empty();
+            
+            var taskViews = [];
+            
+            var columnTasks = this.collection.getByStatus(this.options.status);
+            
+            _.forEach(columnTasks, function(task) {
+                var taskView = new TaskView({ model : task });
+                var renderedTask = taskView.render().el;
+                taskViews.push(renderedTask);
+            });
+            
+            $(this.el).append(taskViews);
+            
+            return this;        
+        }
+    
+    });
+    
+    /**
      * View encapsulating the logic required to display a collection of tasks.
      */
     var TaskListView = Backbone.View.extend({
@@ -393,49 +436,6 @@
             this.childViews.push(childView);
         }
 
-    });
-    
-    /**
-     * View encapsulating the logic required for rendering a column of tasks
-     * with a specified status.
-     */
-    var TaskListColumnView = Backbone.View.extend({
-    
-        /**
-         * Initializes the view.
-         * 
-         * Ensures that the `render` function always has `this` scoped to the 
-         * view when it is invoked.
-         */
-        initialize : function() {
-            _.bindAll(this, "render");
-        },
-        
-        /**
-         * Renders a column of tasks from the collection with the specified 
-         * status.
-         *
-         * Removes everything from the containing element before rendering each
-         * of the tasks individually.
-         */
-        render : function() {
-            $(this.el).empty();
-            
-            var taskViews = [];
-            
-            var columnTasks = this.collection.getByStatus(this.options.status);
-            
-            _.forEach(columnTasks, function(task) {
-                var taskView = new TaskView({ model : task });
-                var renderedTask = taskView.render().el;
-                taskViews.push(renderedTask);
-            });
-            
-            $(this.el).append(taskViews);
-            
-            return this;        
-        }
-    
     });
 
     /**
