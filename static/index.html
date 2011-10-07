@@ -9,6 +9,18 @@
 
     <h1>DDD North - Backbone.js</h1>
     
+    <!-- Add task view -->
+    <div id="add-task" class="view">
+        <form class="add">
+            <a class="save-task back" href="#">&larr; Back</a>
+            <input type="text" name="name" class="name" value="" placeholder="Name" />
+            <textarea name="description" class="description" placeholder="Description"></textarea>
+            <a href="#" class="add-task">Add</a>
+            <a href="#" class="cancel cancel-add">Cancel</a>
+        </form>
+    </div>
+    
+    <!-- Board view -->
     <table id="todo-list" class="view">
         <thead>
             <tr>
@@ -28,17 +40,19 @@
             </tr>
         </tbody>
     </table>
+
+    <!-- Task template -->
+    <script id="task" type="text/html">
+        <div class="display">
+            <button class="move move-left">&larr;</button>
+            <button class="move move-right">&rarr;</button>
+            <a href="#task/{{id}}" class="content">
+                <h3 class="name">{{name}}</h3>
+            </a>
+        </div>
+    </script>
     
-    <div id="add-task" class="view">
-        <form class="add">
-            <a class="save-task back" href="#">&larr; Back</a>
-            <input type="text" name="name" class="name" value="" placeholder="Name" />
-            <textarea name="description" class="description" placeholder="Description"></textarea>
-            <a href="#" class="add-task">Add</a>
-            <a href="#" class="cancel cancel-add">Cancel</a>
-        </form>
-    </div>
-    
+    <!-- Edit task view -->
     <div id="edit-task" class="view">
         <form class="edit" >
             <a class="save-task back" href="#">&larr; Back</a>
@@ -51,18 +65,8 @@
     </div>
     
     <div id="footer">
-    	<a href="https://github.com/gshutler/dddnorth">Source on Github</a>
+        <a href="https://github.com/gshutler/dddnorth">Source on Github</a>
     </div>
-
-    <script id="task" type="text/html">
-        <div class="display">
-            <button class="move move-left">&larr;</button>
-            <button class="move move-right">&rarr;</button>
-            <a href="#task/{{id}}" class="content">
-                <h3 class="name">{{name}}</h3>
-            </a>
-        </div>
-    </script>
 
     <script src="js/jquery-1.6.3.min.js"></script>
     <script src="js/underscore.js"></script>

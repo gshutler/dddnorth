@@ -193,80 +193,6 @@
     });
     
     /**
-     * View encapsulating the logic required for the task editing view.
-     */
-    var TaskEditView = Backbone.View.extend({
-        
-        /**
-         * Initializes the view.
-         *
-         * Retrieves a handle to the editing form to save constant retrieval
-         * and ensure the `render`, `saveTask` and `deleteTask` functions
-         * always have `this` scoped to the view.
-         */
-        initialize : function() {
-            this.form = this.$(".edit")[0];
-            
-            _.bindAll(this, "render", "saveTask", "deleteTask");
-        },
-        
-        /**
-         * Defines the events to bind within the view.
-         */
-        events : {
-            
-            /**
-             * When the `save-task` element is clicked within the view then the
-             * `saveTask` function should be invoked.
-             */
-            "click .save-task" : "saveTask",
-            
-            /**
-             * When the `delete-task` element is clicked within the view then
-             * the `deletedTask` function should be invoked.
-             */
-            "click .delete-task" : "deleteTask"
-        
-        },
-        
-        /**
-         * Renders the view for the given model.
-         *
-         * This is stores a reference to the model within the view and sets the
-         * values within the form according to those stored within the model.
-         */
-        render : function(model) {
-            this.model = model;
-            this.form.name.value = model.get("name");
-            this.form.description.value = model.get("description");
-                        
-            return this;
-        },
-        
-        /**
-         * Transfers the values from the form into the active model and invokes
-         * its `save` function.
-         */
-        saveTask : function() {         
-            var json = {
-                "name" : this.form.name.value,
-                "description" : this.form.description.value
-            };
-            
-            this.model.set(json);
-            this.model.save();
-        },
-        
-        /**
-         * Deletes the active model by invoking its `destroy` function.
-         */
-        deleteTask : function() {
-            this.model.destroy();
-        }        
-        
-    });
-    
-    /**
      * View encapsulating the logic required for displaying an individual task.
      */
     var TaskView = Backbone.View.extend({
@@ -436,6 +362,80 @@
             this.childViews.push(childView);
         }
 
+    });
+    
+    /**
+     * View encapsulating the logic required for the task editing view.
+     */
+    var TaskEditView = Backbone.View.extend({
+        
+        /**
+         * Initializes the view.
+         *
+         * Retrieves a handle to the editing form to save constant retrieval
+         * and ensure the `render`, `saveTask` and `deleteTask` functions
+         * always have `this` scoped to the view.
+         */
+        initialize : function() {
+            this.form = this.$(".edit")[0];
+            
+            _.bindAll(this, "render", "saveTask", "deleteTask");
+        },
+        
+        /**
+         * Defines the events to bind within the view.
+         */
+        events : {
+            
+            /**
+             * When the `save-task` element is clicked within the view then the
+             * `saveTask` function should be invoked.
+             */
+            "click .save-task" : "saveTask",
+            
+            /**
+             * When the `delete-task` element is clicked within the view then
+             * the `deletedTask` function should be invoked.
+             */
+            "click .delete-task" : "deleteTask"
+        
+        },
+        
+        /**
+         * Renders the view for the given model.
+         *
+         * This is stores a reference to the model within the view and sets the
+         * values within the form according to those stored within the model.
+         */
+        render : function(model) {
+            this.model = model;
+            this.form.name.value = model.get("name");
+            this.form.description.value = model.get("description");
+                        
+            return this;
+        },
+        
+        /**
+         * Transfers the values from the form into the active model and invokes
+         * its `save` function.
+         */
+        saveTask : function() {         
+            var json = {
+                "name" : this.form.name.value,
+                "description" : this.form.description.value
+            };
+            
+            this.model.set(json);
+            this.model.save();
+        },
+        
+        /**
+         * Deletes the active model by invoking its `destroy` function.
+         */
+        deleteTask : function() {
+            this.model.destroy();
+        }        
+        
     });
 
     /**
