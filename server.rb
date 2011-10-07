@@ -9,11 +9,12 @@ set :public, File.join(File.dirname(__FILE__), "static")
 
 TASKS = []
 
-TASKS << Task.new("name" => "Sketch out in-memory", "description" => "Demonstrate idea")
-TASKS << Task.new("name" => "Replace with database perhaps", "description" => "Might not be needed")
-TASKS << Task.new("name" => "Implement Sinatra methods", "description" => "Out of practice")
-TASKS << Task.new("name" => "Doing task", "description" => "Checking", "status" => "doing")
-TASKS << Task.new("name" => "Done task", "description" => "Checking", "status" => "done")
+TASKS << Task.new("name" => "Eat food", "description" => "Mmmmmm... Food.")
+TASKS << Task.new("name" => "Drink beer", "description" => "Discuss plans for world domination.")
+TASKS << Task.new("name" => "Recover and travel home", "description" => "Could be a loooong train journey.")
+TASKS << Task.new("name" => "Give presentation", "description" => "Checking", "status" => "doing")
+TASKS << Task.new("name" => "Write example application", "description" => "Demonstrate as many features of backbone as sensible.", "status" => "done")
+TASKS << Task.new("name" => "Create presentation", "description" => "", "status" => "done")
 
 # Returns `index.html` for root URL.
 get "/" do

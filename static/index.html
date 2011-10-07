@@ -12,10 +12,9 @@
     <!-- Add task view -->
     <div id="add-task" class="view">
         <form class="add">
-            <a class="save-task back" href="#">&larr; Back</a>
             <input type="text" name="name" class="name" value="" placeholder="Name" />
             <textarea name="description" class="description" placeholder="Description"></textarea>
-            <a href="#" class="add-task">Add</a>
+            <button type="submit">Add</button>
             <a href="#" class="cancel cancel-add">Cancel</a>
         </form>
     </div>
@@ -55,11 +54,12 @@
     <!-- Edit task view -->
     <div id="edit-task" class="view">
         <form class="edit" >
-            <a class="save-task back" href="#">&larr; Back</a>
             <input type="text" name="name" class="name" value="" />
             <textarea name="description" class="description"></textarea>
             <div class="actions">
                 <a href="#" class="delete delete-task">Delete</a>
+                <button type="submit">Save</button>
+                <a href="#" class="cancel cancel-update">Cancel</a>
             </div>
         </form> 
     </div>

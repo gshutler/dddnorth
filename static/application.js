@@ -1,4 +1,7 @@
 (function() {
+
+    /* Handle to the application for access to things like navigation. */
+    var app = null;
     
     /**
      * Representation of a task.
@@ -153,16 +156,17 @@
         events : {
             
             /**
-             * When the `add-task` element within the view is clicked then the
+             * When the `add` form within the view is submitted then the
              * `addTask` function should be invoked.
              */
-            "click .add-task" : "addTask"
+            "submit form.add" : "addTask"
         
         },
         
         /**
          * Transfers the values within the form into a JSON object which is used
-         * to create a new task within the collection.
+         * to create a new task within the collection and then navigates to the
+         * default route.
          */
         addTask : function() {          
             var json = {
@@ -171,6 +175,12 @@
             };
             
             this.collection.create(json);
+            
+            /* Navigate to the default route. */
+            app.navigate("", true);
+            
+            /* Stop the form submitting */
+            return false;
         },
         
         /**
@@ -377,7 +387,7 @@
          * always have `this` scoped to the view.
          */
         initialize : function() {
-            this.form = this.$(".edit")[0];
+            this.form = this.$("form.edit")[0];
             
             _.bindAll(this, "render", "saveTask", "deleteTask");
         },
@@ -388,10 +398,10 @@
         events : {
             
             /**
-             * When the `save-task` element is clicked within the view then the
+             * When the `edit` form is submitted within the view then the
              * `saveTask` function should be invoked.
              */
-            "click .save-task" : "saveTask",
+            "submit form.edit" : "saveTask",
             
             /**
              * When the `delete-task` element is clicked within the view then
@@ -417,7 +427,7 @@
         
         /**
          * Transfers the values from the form into the active model and invokes
-         * its `save` function.
+         * its `save` function before navigating to the default route.
          */
         saveTask : function() {         
             var json = {
@@ -427,13 +437,23 @@
             
             this.model.set(json);
             this.model.save();
+            
+            /* Navigate to the default route. */
+            app.navigate("", true);
+            
+            /* Stop the form submitting */
+            return false;
         },
         
         /**
-         * Deletes the active model by invoking its `destroy` function.
+         * Deletes the active model by invoking its `destroy` function and then
+         * navigates to the default route.
          */
         deleteTask : function() {
             this.model.destroy();
+            
+            /* Navigate to the default route. */
+            app.navigate("", true);
         }        
         
     });
@@ -549,7 +569,7 @@
              * initialized with them.
              */
             complete : function() {
-                var app = new TodoList({ tasks : tasks });
+                app = new TodoList({ tasks : tasks });
 
                 Backbone.history.start();
             }

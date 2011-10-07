@@ -1,169 +1,173 @@
 body {
-	text-align: center;
-	font-family: Helvetica;
-	font-size: 1.2em;
+    text-align: center;
+    font-family: Helvetica;
+    font-size: 1.2em;
 }
 
 .view {
-	display: none;
+    display: none;
 }
 
 table tr td {
-	vertical-align: top;
+    vertical-align: top;
 }
 
 #add-task,
 #edit-task {
-	margin: auto;
-	width: 600px;
-	text-align: left;
+    margin: auto;
+    width: 600px;
+    text-align: left;
 }
 
 #todo-list {
-	margin: auto;
+    margin: auto;
 }
 
 #todo-list th {
-	font-size: 1em;
-	color: #888;
+    font-size: 1em;
+    color: #888;
 }
 
 #todo-list tbody {
-	text-align: left;
+    text-align: left;
 }
 
 .task-column {
-	padding: 0 8px;
+    padding: 0 8px;
 }
 
 #todo, 
 #doing,
 #done {
-	width: 260px;
+    width: 260px;
 }
 
 #todo .move-left,
 #done .move-right {
-	display: none;
+    display: none;
 }
 
 #todo-list tbody td .task:first-child {
-	padding-top: 8px;
-	border-top: dotted 1px #000;
+    padding-top: 8px;
+    border-top: dotted 1px #000;
 }
 
 .task {
-	margin-bottom: 8px;
-	border-bottom: dotted 1px #444;
+    margin-bottom: 8px;
+    border-bottom: dotted 1px #444;
 }
 
 .task .display,
 .task .move,
 .new-task {
-	border: none;
-	background: none;
-	text-decoration: none;
+    border: none;
+    background: none;
+    text-decoration: none;
 }
 
 .task .move,
 .new-task {
-	font-size: 1.1em;
-	color: #888;
+    font-size: 1.1em;
+    color: #888;
 }
 
 .new-task {
-	font-size: 1.4em;
+    font-size: 1.4em;
 }
 
 .task .move:hover,
 .new-task:hover {
-	color: #000;
+    color: #000;
+}
+
+button[type=submit] {
+    width: 140px;
+    margin-right: 0.6em;
+    font-size: 1.1em;
 }
 
 button:hover {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .task .move-left {
-	float: left;
+    float: left;
 }
 
 .task .move-right {
-	float: right;
+    float: right;
 }
 
 .task .name {
-	font-weight: normal;
-	color: #000;
-	margin: 0 0 4px 0;
-	font-size: 1.1em;
+    font-weight: normal;
+    color: #000;
+    margin: 0 0 4px 0;
+    font-size: 1.1em;
 }
 
 .task .name:hover {
-	color: #444;
+    color: #444;
 }
 
 .task .display {
-	margin-bottom: 8px;
-	clear: both;
+    margin-bottom: 8px;
+    clear: both;
 }
 
 .task .content {
-	display: block;
-	min-height: 44px;
-	margin: 0 40px;
-	text-decoration: none;
+    display: block;
+    min-height: 44px;
+    margin: 0 40px;
+    text-decoration: none;
 }
 
 label,
 textarea {
-	display: block;
+    display: block;
 }
 
 input,
 textarea {
-	width: 100%;
+    width: 100%;
 }
 
 input.name {
-	font-size: 2em;
-	margin: 8px 0;
+    font-size: 2em;
+    margin: 8px 0;
 }
 
 textarea.description {
-	font-size: 1.2em;
-	height: 160px;
-	margin-bottom: 8px;
-	color: #444;
+    font-size: 1.2em;
+    height: 160px;
+    margin-bottom: 8px;
+    color: #444;
 }
 
 a.delete {
-	text-decoration: none;
-	color: #888;
+    display: block;
+    float: right;
+    text-decoration: none;
+    color: #888;
 }
 
 a.delete:hover {
-	color: #f00;
-}
-
-#edit-task .actions {
-	text-align: right;
+    color: #f00;
 }
 
 .back {
-	color: #444;
-	text-decoration: none;
+    color: #444;
+    text-decoration: none;
 }
 
 .back:hover {
-	color: #bbb;
+    color: #bbb;
 }
 
 #footer a {
-	color: #bbb;
-	font-size: 0.8em;
+    color: #bbb;
+    font-size: 0.8em;
 }
 
 #footer a:hover {
-	color: #444;
+    color: #444;
 }
